@@ -10,7 +10,8 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        image: [14-alpine, 14-master]
+        pg_version: [14, 13]
+        base_image: [alpine, debian]
     steps:
       - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b # tag=v3
       - name: qemu_setup
@@ -33,7 +34,7 @@ jobs:
         with:
           push: true
           platforms: linux/amd64
-          tags: ghcr.io/boredland/h3-pg:${{ matrix.image }}-${{ env.TAG }},ghcr.io/boredland/h3-pg:${{ matrix.image }}
-          file: ${{ matrix.image }}.Dockerfile
+          tags: ghcr.io/boredland/h3-pg:${{ matrix.pg_version }}-${{ matrix.base_image }}-${{ env.TAG }},ghcr.io/boredland/h3-pg:${{ matrix.pg_version }}-${{ matrix.base_image }}
+          file: ${{ matrix.pg_version }}-${{ matrix.base_image }}.Dockerfile
           build-args: |
             H3_PG_VERSION=${{ env.TAG }}
