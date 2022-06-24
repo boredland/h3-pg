@@ -3,7 +3,7 @@ ARG H3_PG_VERSION=3.7.2
 
 ADD 11_pg-h3.sh /docker-entrypoint-initdb.d/
 
-ARG deps="build-essential cmake git postgresql-server-dev-14"
+ARG deps="build-essential cmake git postgresql-server-dev-13"
 
 RUN apt-get update && apt-get install -y ${deps} pgxnclient
 
