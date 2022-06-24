@@ -38,3 +38,5 @@ jobs:
           file: ${{ matrix.pg_version }}-${{ matrix.base_image }}.Dockerfile
           build-args: |
             H3_PG_VERSION=${{ env.TAG }}
+          cache-from: type=registry,ref=ghcr.io/boredland/h3-pg:cache-${{ matrix.pg_version }}-${{ matrix.base_image }}
+          cache-to: type=registry,ref=ghcr.io/boredland/h3-pg:cache-${{ matrix.pg_version }}-${{ matrix.base_image }}
