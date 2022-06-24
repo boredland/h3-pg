@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - main
+  pull_request:
+    branches:
+      - main
   schedule:
     - cron:  '0 0 * * *'
 
@@ -36,7 +39,7 @@ jobs:
         id: docker_build
         uses: docker/build-push-action@e551b19e49efd4e98792db7592c17c09b89db8d8 # tag=v3
         with:
-          push: true
+          push: ${{ github.event_name != 'pull_request' }}
           platforms: linux/amd64
           tags: ghcr.io/boredland/h3-pg:${{ matrix.pg_version }}-${{ matrix.base_image }}-${{ env.TAG }},ghcr.io/boredland/h3-pg:${{ matrix.pg_version }}-${{ matrix.base_image }}
           file: ${{ matrix.pg_version }}-${{ matrix.base_image }}.Dockerfile
